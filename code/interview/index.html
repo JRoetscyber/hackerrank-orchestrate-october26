@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ghost Data Still Exists - how the system works and why</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1>Ghost Data Still Exists</h1>
+    <p class="sub">A deletion-audit agent: how it works, why each choice was made, and how to talk about it. Open this file in any browser; it has no dependencies.</p>
+    <nav>
+      <a href="#flow">Flow diagram</a>
+      <a href="#numbers">Key numbers</a>
+      <a href="#choices">Design choices</a>
+      <a href="#stack">Why Go, SQL, SDLC</a>
+      <a href="#sdlc">SDLC: plan vs reality</a>
+      <a href="#story">The incident</a>
+      <a href="#qa">Interview Q&amp;A</a>
+      <a href="#limits">Limits</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="flow">
+  <h2>1. The flow, end to end</h2>
+  <p class="lead">Click any box. Blue is deterministic Go and SQL, orange is the only place a model is used, green is data at rest. The animated dots show one request travelling through the system.</p>
+  <div class="controls">
+    <label><input type="checkbox" id="anim" checked> Animate the flow</label>
+    <span class="legend">
+      <i class="k det"></i>Deterministic (Go / SQL)
+      <i class="k llm"></i>LLM (Gemini)
+      <i class="k data"></i>Data store
+      <i class="k out"></i>Output / exit
+    </span>
+  </div>
+  <div class="diagram"><svg id="svg" viewBox="0 0 1240 490" role="img" aria-label="System flow diagram"></svg></div>
+  <article id="detail" class="detail" aria-live="polite"></article>
+</section>
+
+<section id="numbers">
+  <h2>2. Key numbers</h2>
+  <div class="grid" id="numgrid"></div>
+  <p class="note">All figures are from the final run recorded in <code>code/evaluation/</code>. Cost is an estimate from token counts times the configured price; the token counts themselves are exact.</p>
+</section>
+
+<section id="choices">
+  <h2>3. Design choices and the reason for each</h2>
+  <p class="lead">Each card: what was chosen, what it was weighed against, why, and what it costs. Click a card to expand.</p>
+  <div id="choicelist" class="cards"></div>
+</section>
+
+<section id="stack">
+  <h2>4. Why Go, SQL (SQLite) and the SDLC</h2>
+  <p class="lead">These are your reasons, in your words first, then the evidence from this build that backs each one up, so you can answer follow-up questions with facts.</p>
+  <div id="stackgrid" class="stack"></div>
+</section>
+
+<section id="sdlc">
+  <h2>5. The SDLC: what the blueprint planned and what actually happened</h2>
+  <div id="sdlctable" class="tablewrap"></div>
+</section>
+
+<section id="story">
+  <h2>6. The incident (tell this one yourself)</h2>
+  <div id="storybox" class="story"></div>
+</section>
+
+<section id="qa">
+  <h2>7. Likely interview questions</h2>
+  <div id="qalist" class="cards"></div>
+</section>
+
+<section id="limits">
+  <h2>8. Honest limits and what you would do next</h2>
+  <div id="limitbox" class="two"></div>
+</section>
+
+</main>
+<footer class="wrap foot">Built with the project's own results: see <code>README.md</code>, <code>code/evaluation/evaluation_report.md</code> and <code>code/evaluation/usage_report.md</code>.</footer>
+<script src="app.js"></script>
+</body>
+</html>

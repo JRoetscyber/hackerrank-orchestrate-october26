@@ -1,0 +1,8 @@
+.env
+.vs/
+data/
+*.exe
+*.zip
+agent-trace*
+*trace*
+log.txt
